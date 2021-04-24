@@ -185,7 +185,7 @@ static u32 LINE_MULTIPLIERS[4] = {
     40, 100, 300, 1200
 };
 
-#define NUM_CONTROLS 7
+#define NUM_CONTROLS 8
 struct Control {
     bool down;
     bool last;
@@ -215,6 +215,7 @@ static struct {
             struct Control rotate_left;
             struct Control rotate_right;
             struct Control rotate;
+            struct Control rotate_arrow;
             struct Control left;
             struct Control right;
             struct Control down;
@@ -587,6 +588,7 @@ static void update() {
         keyboard_char('a'),
         keyboard_char('d'),
         keyboard_char('r'),
+        keyboard_key(KEY_UP),
         keyboard_key(KEY_LEFT),
         keyboard_key(KEY_RIGHT),
         keyboard_key(KEY_DOWN),
@@ -607,7 +609,7 @@ static void update() {
     if (state.controls.rotate_left.pressed) {
         rotate(false);
     } else if (state.controls.rotate_right.pressed ||
-        state.controls.rotate.pressed) {
+        state.controls.rotate.pressed || state.controls.rotate_arrow.pressed) {
         rotate(true);
     }
 
